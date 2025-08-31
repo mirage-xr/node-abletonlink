@@ -68,7 +68,13 @@ function do_something() {
 
 ## Example
 
-* [node-abletonlink-example](https://github.com/2bbb/node-abletonlink-example)
+Enhanced examples in `examples/simple.js`
+
+## 📚 Documentation
+
+- **README.md** - This file with overview and basic usage
+- **[API.md](API.md)** - Complete API reference with all methods, properties, and examples
+- **CHANGELOG.md** - Version history and changes
 
 ## API
 

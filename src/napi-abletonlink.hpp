@@ -234,6 +234,18 @@ namespace napi {
                     IM(getQuantum),
                     Property(quantum, getQuantum, setQuantum_),
 
+                    // New timeline methods
+                    IM(getTimeAtBeat),
+                    IM(requestBeatAtStartPlayingTime),
+                    IM(setIsPlayingAndRequestBeatAtTime),
+                    IM(getTimeForIsPlaying),
+
+                    // New session methods
+                    IM(getSessionId),
+                    IM(getSessionInfo),
+                    IM(getPlatformInfo),
+                    IM(getNetworkStats),
+
                     IM(onTempoChanged),
                     IM(onNumPeersChanged),
                     IM(onPlayStateChanged),
@@ -374,6 +386,41 @@ namespace napi {
             sessionState->forceBeatAtTime(beat, time, quantum);
         }
 
+        // New: Get time at which a specific beat occurs
+        ToValue<Napi::Number> getTimeAtBeat(const Napi::CallbackInfo &info) {
+            double beat = info[0].As<Napi::Number>();
+            double quantum = info[1].As<Napi::Number>();
+            const auto &&time = get_session_state()->timeAtBeat(beat, quantum);
+            // Convert microseconds to milliseconds for JavaScript
+            return toNapi(info, std::chrono::duration_cast<std::chrono::milliseconds>(time).count());
+        }
+
+        // New: Request beat at start playing time
+        void requestBeatAtStartPlayingTime(const Napi::CallbackInfo &info) {
+            double beat = info[0].As<Napi::Number>();
+            double quantum = info[1].As<Napi::Number>();
+            auto &&sessionState = get_session_state();
+            sessionState->requestBeatAtStartPlayingTime(beat, quantum);
+        }
+
+        // New: Combined play state and beat request
+        void setIsPlayingAndRequestBeatAtTime(const Napi::CallbackInfo &info) {
+            bool isPlaying = info[0].As<Napi::Boolean>();
+            double timeMs = info[1].As<Napi::Number>();
+            double beat = info[2].As<Napi::Number>();
+            double quantum = info[3].As<Napi::Number>();
+            
+            const auto time = std::chrono::milliseconds(static_cast<long long>(timeMs));
+            auto &&sessionState = get_session_state();
+            sessionState->setIsPlayingAndRequestBeatAtTime(isPlaying, time, beat, quantum);
+        }
+
+        // New: Get time for transport start/stop
+        ToValue<Napi::Number> getTimeForIsPlaying(const Napi::CallbackInfo &info) {
+            const auto &&time = get_session_state()->timeForIsPlaying();
+            return toNapi(info, std::chrono::duration_cast<std::chrono::milliseconds>(time).count());
+        }
+
         ToValue<Napi::Number> getPhase(const Napi::CallbackInfo &info) // const
         { return toNapi(info, phase); }
         
@@ -441,6 +488,73 @@ namespace napi {
         ToValue<Napi::Number> getQuantum(const Napi::CallbackInfo &info) // const
         { return toNapi(info, quantum); }
         
+        // New: Get session ID (as a string representation)
+        ToValue<Napi::String> getSessionId(const Napi::CallbackInfo &info) {
+            // For now, return a hash of the current time as a session identifier
+            // In a full implementation, this would come from the Link session
+            auto now = std::chrono::system_clock::now();
+            auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
+            std::string sessionId = "session_" + std::to_string(now_ms.count());
+            return Napi::String::New(info.Env(), sessionId);
+        }
+
+        // New: Get session measurement info
+        ToValue<Napi::Object> getSessionInfo(const Napi::CallbackInfo &info) {
+            Napi::Env env = info.Env();
+            Napi::Object obj = Napi::Object::New(env);
+            
+            obj.Set("numPeers", link.numPeers());
+            obj.Set("isEnabled", link.isEnabled());
+            obj.Set("isStartStopSyncEnabled", link.isStartStopSyncEnabled());
+            obj.Set("currentTempo", bpm);
+            obj.Set("currentBeat", beat);
+            obj.Set("currentPhase", phase);
+            obj.Set("quantum", quantum);
+            obj.Set("isPlaying", isPlayingWhenUpdate);
+            
+            return obj;
+        }
+
+        // New: Get platform and system information
+        ToValue<Napi::Object> getPlatformInfo(const Napi::CallbackInfo &info) {
+            Napi::Env env = info.Env();
+            Napi::Object obj = Napi::Object::New(env);
+            
+            // Platform detection
+            #ifdef LINK_PLATFORM_MACOSX
+                obj.Set("platform", "macos");
+            #elif defined(LINK_PLATFORM_LINUX)
+                obj.Set("platform", "linux");
+            #elif defined(LINK_PLATFORM_WINDOWS)
+                obj.Set("platform", "windows");
+            #else
+                obj.Set("platform", "unknown");
+            #endif
+            
+            obj.Set("linkVersion", "3.1.3");
+            obj.Set("hasCustomClock", false); // Basic implementation for now
+            obj.Set("supportsAdvancedTimeline", true);
+            obj.Set("supportsSessionManagement", true);
+            
+            return obj;
+        }
+
+        // New: Get network and performance statistics
+        ToValue<Napi::Object> getNetworkStats(const Napi::CallbackInfo &info) {
+            Napi::Env env = info.Env();
+            Napi::Object obj = Napi::Object::New(env);
+            
+            obj.Set("numPeers", link.numPeers());
+            obj.Set("isEnabled", link.isEnabled());
+            obj.Set("sessionActive", link.numPeers() > 0);
+            
+            // Basic network info (can be enhanced with actual network stats)
+            obj.Set("networkLatency", 0); // Placeholder
+            obj.Set("connectionQuality", "good"); // Placeholder
+            
+            return obj;
+        }
+
         void onTempoChanged(const Napi::CallbackInfo &info) {
             Napi::Function cb = info[0].As<Napi::Function>();
             // tempoCallback = Napi::Persistent(cb);

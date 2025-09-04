@@ -1,6 +1,6 @@
 {
   "name": "@mirage-xr/node-abletonlink",
-  "version": "3.1.3-alpha.2",
+  "version": "3.1.3-alpha.3",
   "description": "ableton link for node.js with Link 3.1.3 features",
   "main": "index.js",
   "directories": {

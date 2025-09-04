@@ -41,6 +41,11 @@
     "node": ">=23.3.0"
   },
   "types": "./index.d.ts",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js",
+    "require": "./index.js"
+  },
   "gypfile": true,
   "devDependencies": {
     "node-gyp": "^11.4.2"

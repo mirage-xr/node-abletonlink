@@ -1,6 +1,6 @@
 {
   "name": "@mirage-xr/node-abletonlink",
-  "version": "3.1.3",
+  "version": "3.1.3-alpha.1",
   "description": "ableton link for node.js with Link 3.1.3 features",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,15 @@
     "prepare": "git submodule update --init --recursive",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["ableton", "link", "synchronization", "tempo", "beat", "music", "audio"],
+  "keywords": [
+    "ableton",
+    "link",
+    "synchronization",
+    "tempo",
+    "beat",
+    "music",
+    "audio"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:mirage-xr/node-abletonlink.git"

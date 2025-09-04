@@ -7,13 +7,22 @@
     "example": "./example"
   },
   "scripts": {
-    "node-gyp": "node-gyp"
+    "node-gyp": "node-gyp",
+    "prepare": "git submodule update --init --recursive",
+    "prepublishOnly": "npm run build"
   },
   "keywords": ["ableton", "link", "synchronization", "tempo", "beat", "music", "audio"],
   "repository": {
     "type": "git",
     "url": "git@github.com:mirage-xr/node-abletonlink.git"
   },
+  "files": [
+    "dist",
+    "src",
+    "binding.gyp",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "Valentin Dubois - @veacks veacks.net@gmail.com",
   "license": "MIT",
   "dependencies": {
@@ -21,7 +30,7 @@
     "node-addon-api": "^2.0.0"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=23.3.0"
   },
   "types": "./index.d.ts",
   "gypfile": true

@@ -12,9 +12,9 @@
   "keywords": ["ableton", "link", "synchronization", "tempo", "beat", "music", "audio"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/2bbb/node-abletonlink"
+    "url": "https://github.com/veacks/node-abletonlink"
   },
-  "author": "2bit [i@2bit.jp]",
+  "author": "Valentin Dubois - @veacks veacks.net@gmail.com",
   "license": "MIT",
   "dependencies": {
     "bindings": "^1.5.0",

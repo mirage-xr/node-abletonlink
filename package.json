@@ -7,8 +7,8 @@
     "example": "./example"
   },
   "scripts": {
-    "node-gyp": "node-gyp",
     "prepare": "git submodule update --init --recursive",
+    "build": "node-gyp rebuild",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -41,5 +41,8 @@
     "node": ">=23.3.0"
   },
   "types": "./index.d.ts",
-  "gypfile": true
+  "gypfile": true,
+  "devDependencies": {
+    "node-gyp": "^11.4.2"
+  }
 }

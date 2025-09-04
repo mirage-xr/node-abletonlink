@@ -1,9 +1,9 @@
-# @mirage/abletonlink 
+# @mirage-xr/node-abletonlink 
 
 > A modernized Node.js/TypeScript interface to [Ableton Link](https://github.com/ableton/link), refactored from the original [2bbb/node-abletonlink](https://github.com/2bbb/node-abletonlink).  
 > This fork updates the API surface, adds Link 3.1.3 features, and includes expanded docs and TypeScript definitions—while keeping attribution, license, and spirit of the original work.
 
-**Package**: `@mirage/abletonlink`
+**Package**: `@mirage-xr/node-abletonlink`
 **Version**: 0.1.4  
 **Link Library**: 3.1.3  
 **Supported OS**: macOS, Linux, Windows  
@@ -49,7 +49,7 @@ The Node.js Ableton Link module provides a complete JavaScript/TypeScript interf
 ## Installation
 
 ```bash
-npm install @mirage/abletonlink
+npm install @mirage-xr/node-abletonlink
 ```
 
 ---
@@ -85,7 +85,7 @@ This module uses a native addon (node-addon-api). You’ll need platform build t
 ## Quick Start
 
 ```javascript
-const abletonlink = require('@mirage/abletonlink');
+const abletonlink = require('@mirage-xr/node-abletonlink');
 
 // bpm=120, quantum=4 (e.g., 4/4), enabled=true
 const link = new abletonlink(120, 4, true);
@@ -135,7 +135,7 @@ The Node.js Ableton Link module provides a complete JavaScript/TypeScript interf
 ## Installation
 
 ```bash
-npm install @mirage/abletonlink
+npm install @mirage-xr/node-abletonlink
 ```
 
 **Requirements**:
@@ -148,7 +148,7 @@ npm install @mirage/abletonlink
 ## Basic Usage
 
 ```javascript
-const abletonlink = require('@mirage/abletonlink');
+const abletonlink = require('@mirage-xr/node-abletonlink');
 
 // Create a new Link instance
 const link = new abletonlink(120, 4, true);
@@ -1482,7 +1482,7 @@ The module gracefully handles edge cases:
 ### Basic Synchronization
 
 ```javascript
-const abletonlink = require('@mirage/abletonlink');
+const abletonlink = require('@mirage-xr/node-abletonlink');
 
 const link = new abletonlink(120, 4, true);
 
@@ -1547,7 +1547,7 @@ link.startUpdate(16, (beat, phase, bpm) => {
 The module includes complete TypeScript definitions in `index.d.ts`:
 
 ```typescript
-import abletonlink from '@mirage/abletonlink';
+import abletonlink from '@mirage-xr/node-abletonlink';
 
 const link: abletonlink = new abletonlink(120, 4, true);
 

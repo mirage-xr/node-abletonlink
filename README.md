@@ -4,7 +4,7 @@
 > This fork updates the API surface, adds Link 3.1.3 features, and includes expanded docs and TypeScript definitions—while keeping attribution, license, and spirit of the original work.
 
 **Package**: `@mirage-xr/node-abletonlink`
-**Version**: 0.1.4  
+**Version**: 3.1.3  
 **Link Library**: 3.1.3  
 **Supported OS**: macOS, Linux, Windows  
 **Node.js**: 18.13.0+
@@ -109,7 +109,7 @@ link.startUpdate(60, (beat, phase, bpm, playState) => {
 
 The Node.js Ableton Link module provides a complete JavaScript/TypeScript interface to the Ableton Link library, enabling real-time musical synchronization across multiple applications. This module supports both the original Link functionality and the enhanced features from Link 3.1.3.
 
-**Version**: 0.1.4  
+**Version**: 3.1.3  
 **Link Library**: 3.1.3  
 **Platform Support**: macOS, Linux, Windows  
 **Node.js**: 18.13.0+  

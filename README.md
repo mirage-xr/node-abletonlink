@@ -116,22 +116,6 @@ The Node.js Ableton Link module provides a complete JavaScript/TypeScript interf
 
 ---
 
-## Table of Contents
-
-- [Installation](#installation-1)
-- [Basic Usage](#basic-usage)
-- [Constructor](#constructor)
-- [Properties](#properties)
-- [Methods](#methods)
-- [Events](#events)
-- [Advanced Features](#advanced-features)
-- [Error Handling](#error-handling)
-- [Performance Considerations](#performance-considerations)
-- [Examples](#examples)
-- [TypeScript Support](#typescript-support)
-
----
-
 ## Installation
 
 ```bash
